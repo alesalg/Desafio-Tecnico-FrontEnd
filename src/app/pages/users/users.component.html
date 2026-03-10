@@ -1,0 +1,93 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Perfil & Usuários</h2>
+    <button class="btn-logout" (click)="logout()">Sair</button>
+  </div>
+
+  <div class="profile-card">
+    <div class="avatar">
+      <svg width="60" height="60" viewBox="0 0 60 60">
+        <circle cx="30" cy="30" r="30" fill="#546e7a"/>
+        <text x="30" y="36" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold">
+          {{ authService.currentUser()?.name?.charAt(0) || 'U' }}
+        </text>
+      </svg>
+    </div>
+    <div class="profile-info">
+      <h3>{{ authService.currentUser()?.name }}</h3>
+      <p>{{ authService.currentUser()?.email }}</p>
+    </div>
+    <button class="btn-edit-profile" (click)="openEditProfile()">Editar</button>
+  </div>
+
+  <div class="section-header">
+    <h3>Usuários cadastrados</h3>
+  </div>
+
+  <div class="users-list">
+    @for (user of userService.users(); track user.id) {
+      <div class="user-row">
+        <div class="user-info">
+          <strong>{{ user.name }}</strong>
+          <span>{{ user.email }}</span>
+        </div>
+        <div class="user-actions">
+          <button class="btn-icon" (click)="openEdit(user)" title="Editar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </button>
+          <button class="btn-icon btn-delete" (click)="removeUser(user)" title="Remover"
+            [disabled]="user.id === authService.currentUser()?.id">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (showForm()) {
+    <div class="modal-overlay" (click)="cancel()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3>Editar Usuário</h3>
+
+        <div class="form-group">
+          <label>Nome *</label>
+          <input type="text" [ngModel]="formData().name" (ngModelChange)="updateField('name', $event)" name="name" />
+        </div>
+
+        <div class="form-group">
+          <label>E-mail *</label>
+          <input type="email" [ngModel]="formData().email" (ngModelChange)="updateField('email', $event)" name="email" />
+        </div>
+
+        <div class="form-group">
+          <label>Nova Senha</label>
+          <input type="password" [ngModel]="formData().password" (ngModelChange)="updateField('password', $event)" name="password" placeholder="Deixe em branco para manter" />
+        </div>
+
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="tel" [ngModel]="formData().phone" (ngModelChange)="updateField('phone', $event)" name="phone" />
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+          <button class="btn-save" (click)="save()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (toastMessage()) {
+    <div class="toast" [class.success]="toastType() === 'success'" [class.error]="toastType() === 'error'">
+      {{ toastMessage() }}
+    </div>
+  }
+</div>
+
+<app-bottom-nav />
