@@ -1,0 +1,19 @@
+<div class="vehicle-card" [class.reserved]="vehicle().reserved && !removeBadge()" (click)="onCardClick()">
+  @if (vehicle().reserved && !removeBadge()) {
+    <span class="badge-reserved">Reservado</span>
+  }
+  <div class="card-image">
+    <img [src]="vehicle().image" [alt]="vehicle().name" (error)="onImageError($event)" />
+  </div>
+  <div class="card-info">
+    <h3>{{ vehicle().name }} - {{ vehicle().year }}</h3>
+    <p class="type">{{ vehicle().type }}</p>
+    <p>Motor {{ vehicle().engine }}</p>
+    <p>{{ vehicle().size }} Lugares</p>
+  </div>
+  @if (showReleaseButton()) {
+    <div class="card-actions">
+      <button class="btn-release" (click)="onRelease(); $event.stopPropagation()">Liberar reserva</button>
+    </div>
+  }
+</div>
