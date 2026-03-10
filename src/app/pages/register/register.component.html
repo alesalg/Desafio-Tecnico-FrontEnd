@@ -1,0 +1,42 @@
+<div class="register-page">
+  <div class="register-header">
+    <a routerLink="/login" class="back-btn">&larr;</a>
+    <h2>Criar Conta</h2>
+  </div>
+
+  <form class="register-form" (ngSubmit)="onRegister()">
+    <div class="form-group">
+      <label>Nome *</label>
+      <input type="text" placeholder="Seu nome completo"
+        [ngModel]="name()" (ngModelChange)="name.set($event)" name="name" required />
+    </div>
+
+    <div class="form-group">
+      <label>E-mail *</label>
+      <input type="email" placeholder="seu@email.com"
+        [ngModel]="email()" (ngModelChange)="email.set($event)" name="email" required />
+    </div>
+
+    <div class="form-group">
+      <label>Senha *</label>
+      <input type="password" placeholder="Sua senha"
+        [ngModel]="password()" (ngModelChange)="password.set($event)" name="password" required />
+    </div>
+
+    <div class="form-group">
+      <label>Telefone</label>
+      <input type="tel" placeholder="(00) 00000-0000"
+        [ngModel]="phone()" (ngModelChange)="phone.set($event)" name="phone" />
+    </div>
+
+    @if (error()) {
+      <div class="error-message">{{ error() }}</div>
+    }
+
+    @if (success()) {
+      <div class="success-message">{{ success() }}</div>
+    }
+
+    <button type="submit" class="btn-register">CRIAR CONTA</button>
+  </form>
+</div>

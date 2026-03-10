@@ -1,0 +1,259 @@
+.page-container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 80px;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #1a2332 0%, #2d3e50 100%);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .btn-add {
+    background: #C62828;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: #a31f1f;
+    }
+  }
+}
+
+.vehicles-table {
+  padding: 0.5rem;
+}
+
+.vehicle-row {
+  background: #fff;
+  margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+
+  .vehicle-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    strong {
+      font-size: 0.9rem;
+      color: #1a2332;
+    }
+
+    span {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .badge-reserved {
+      display: inline-block;
+      background: #C62828;
+      color: #fff;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      width: fit-content;
+      font-weight: 600;
+    }
+  }
+
+  .vehicle-actions {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+
+      &.btn-delete:hover {
+        color: #C62828;
+        border-color: #C62828;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  h3 {
+    font-size: 1.1rem;
+    color: #1a2332;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: #555;
+      margin-bottom: 0.375rem;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      outline: none;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: #C62828;
+      }
+    }
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+
+    .btn-cancel {
+      flex: 1;
+      padding: 0.75rem;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .btn-save {
+      flex: 1;
+      padding: 0.75rem;
+      background: #C62828;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        background: #a31f1f;
+      }
+    }
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 200;
+  max-width: 90%;
+  text-align: center;
+
+  &.success { background: #2e7d32; }
+  &.error { background: #c62828; }
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    padding-top: 56px;
+    padding-bottom: 0;
+  }
+
+  .page-header {
+    padding: 1.5rem 2rem;
+
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .vehicles-table {
+    padding: 0.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
+  }
+
+  .modal-content {
+    max-width: 560px;
+    padding: 2rem;
+  }
+
+  .toast {
+    bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-header {
+    padding: 1.5rem 3rem;
+  }
+
+  .vehicles-table {
+    padding: 0.5rem 3rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

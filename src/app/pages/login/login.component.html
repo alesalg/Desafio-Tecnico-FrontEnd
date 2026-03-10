@@ -1,0 +1,50 @@
+<div class="login-page">
+  <div class="login-bg-icon">
+    <img src="assets/logo.svg" alt="" width="280" height="310">
+  </div>
+
+  <div class="login-logo">
+    <div class="logo-icon">
+      <img src="assets/logo.svg" alt="Guardians" width="84" height="93">
+    </div>
+    <h1 class="logo-text">GUARDIANS</h1>
+  </div>
+
+  <form class="login-form" (ngSubmit)="onLogin()">
+    <div class="form-group">
+      <input
+        type="email"
+        placeholder="Usuário"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+        name="email"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        placeholder="Senha"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        name="password"
+        required
+      />
+    </div>
+
+    @if (error()) {
+      <div class="error-message">{{ error() }}</div>
+    }
+
+    <button type="submit" class="btn-login" [disabled]="loading()">
+      {{ loading() ? 'ENTRANDO...' : 'ENTRAR' }}
+    </button>
+
+    <a href="javascript:void(0)" class="forgot-link">Esqueci minha senha</a>
+  </form>
+
+  <div class="register-link">
+    Ainda não tem cadastro? <a routerLink="/register">Criar conta</a>
+  </div>
+</div>
